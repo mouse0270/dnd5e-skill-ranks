@@ -1,6 +1,6 @@
 {
-  "name": "MODULE-ID",
-  "title": "MODULE-TITLE",
+  "name": "dnd5e-skill-ranks",
+  "title": "Skill Ranks for D&D5e",
   "description": "MODULE-DESCRIPTION",
   "version": "1.0.0",
   "library": false,
@@ -12,7 +12,7 @@
   "authors": [
     {
       "name": "Mouse0270",
-      "url": "https://github.com/mouse0270/module-credits",
+      "url": "https://github.com/mouse0270/dnd5e-skill-ranks",
       "discord": "Mouse0270#0270",
       "twitter": "Mouse0270",
       "patreon": "Mouse0270",
@@ -37,10 +37,10 @@
   "url": "This is auto replaced",
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
-  "readme": "https://github.com/mouse0270/module-credits/blob/master/README.md",
-  "changelog": "https://raw.githubusercontent.com/mouse0270/module-credits/master/CHANGELOG.md",
-  "license": "https://github.com/mouse0270/module-credits/blob/master/LICENSE",
-  "bugs": "https://github.com/mouse0270/module-credits/issues",
+  "readme": "This is auto replaced",
+  "changelog": "This is auto replaced",
+  "license": "This is auto replaced",
+  "bugs": "This is auto replaced",
   "media": [ ],
   "flags": {
     "allowBugReporter": true

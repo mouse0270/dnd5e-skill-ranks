@@ -1,8 +1,8 @@
 let _STORE = {};
 export class MODULE {
-	static ID = 'MODULE-ID';
+	static ID = 'dnd5e-skill-ranks';
 	static OPTIONS = {
-		background: '#7030A0',
+		background: '#9d0a0e',
 		color: '#fff',
 		LOG_LEVEL: [
 			{ title: 'OFF', background: '#000', color: '#fff' },

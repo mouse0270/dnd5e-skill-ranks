@@ -1,0 +1,13 @@
+.dnd5e.sheet.actor .rank-toggle {
+	color: #4b4a44;
+}
+.dnd5e.sheet.actor ul.skills-list li.skill .skill-rank {
+	flex: 0 0 16px;
+    line-height: 18px;
+    color: #4b4a44;
+    text-align: center;
+}
+.dnd5e.sheet.actor ul.skills-list li.skill .skill-rank > i {
+	font-weight: 900;
+    font-family: var(--font-primary);
+}

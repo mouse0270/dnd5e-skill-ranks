@@ -4,7 +4,7 @@ import { MODULE } from './_module.mjs';
 // IMPORT SETTINGS -> Settings Register on Hooks.Setup
 import './_settings.mjs';
 
-import { LOGIC } from './module.mjs';
+import { SKILLRANKS } from './module.mjs';
 
 /* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
 // socketlib HOOKS -> socketlib.ready
@@ -31,5 +31,16 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
 });
 
 /* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
+// libWrapper HOOKS -> BIND HOOKS
+/* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
+Hooks.on('libWrapper.Ready', async () => {
+	Hooks.once("init", function() {
+		libWrapper.register(MODULE.ID, 'game.dnd5e.entities.Actor5e.prototype._prepareSkills', SKILLRANKS.prepareSkills, 'OVERRIDE');
+	});
+});
+
+/* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
 // FOUNDRY HOOKS -> BIND HOOKS
 /* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
+Hooks.on("renderActorSheet5e", SKILLRANKS.renderActorSheet5e);
+Hooks.on("renderActorSkillConfig", SKILLRANKS.renderActorSkillConfig);
