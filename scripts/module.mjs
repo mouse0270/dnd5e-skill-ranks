@@ -39,7 +39,7 @@ export class SKILLRANKS {
 		let $element = $(element);
 		$element.find(`select[name="system.skills.${options.skillId}.value"]`).closest('.form-group').after(`<div class="form-group">
 			<label>Skill Rank</label>
-			<select name="flags.${MODULE.ID}.skills.${options.skillId}.rank">
+			<select name="flags.${MODULE.ID}.${options.skillId}">
 				<option value="0">Untrained</option>
 				<option value="2">Knowledgable</option>
 				<option value="3">Trained</option>
@@ -49,10 +49,10 @@ export class SKILLRANKS {
 			</select>
 		</div>`);
 		
-		let rankLevel = app.object.flags[MODULE.ID]?.skills[options.skillId]?.rank ?? 0;
+		let rankLevel = app.object.flags[MODULE.ID]?.[options.skillId] ?? 0;
 		if (options.skill.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;	
 
-		$element.find(`select[name="flags.${MODULE.ID}.skills.${options.skillId}.rank"]`).val(rankLevel);
+		$element.find(`select[name="flags.${MODULE.ID}.${options.skillId}"]`).val(rankLevel);
 
 		app.setPosition();
 	}
@@ -92,7 +92,7 @@ export class SKILLRANKS {
 		  skl.bonus = baseBonus + checkBonus + checkBonusAbl + skillBonus;
 		  skl.mod = ability?.mod ?? 0;
 		  
-		  let rankLevel = this.flags[MODULE.ID]?.skills[id]?.rank ?? 0;
+		  let rankLevel = this.flags[MODULE.ID]?.[id] ?? 0;
 		  if (skl.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
 
 		  //skl.prof = new Proficiency(skl.rank, skl.value, roundDown);
@@ -116,7 +116,7 @@ export class SKILLRANKS {
 		const actor = game.actors.get(actorId);
 		const skillData = actor._source.system.skills[skillName];
 		if ( !actor ) return;
-		let rankLevel = actor.flags[MODULE.ID]?.skills[skillName]?.rank ?? 0;
+		let rankLevel = actor.flags[MODULE.ID]?.[skillName] ?? 0;
 		if (rankLevel == 1) rankLevel = 0;
 		if (skillData.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
 
@@ -137,11 +137,7 @@ export class SKILLRANKS {
 		actor.update({
 			flags: {
 				[MODULE.ID]: {
-					skills: {
-						[skillName]: {
-							rank: getNext(parseInt(rankLevel), (event.type === "click" ? 1 : -1))
-						}
-					}
+					[skillName]: getNext(parseInt(rankLevel), (event.type === "click" ? 1 : -1))
 				} 
 			}
 		})
@@ -153,7 +149,7 @@ export class SKILLRANKS {
 		const skillName = field.parentElement.dataset.skill;
 		const source = this.actor._source.system.skills[skillName];
 		if ( !source ) return;
-		const rankLevel = this.actor.flags[MODULE.ID]?.skills[skillName]?.rank ?? 0;
+		const rankLevel = this.actor.flags[MODULE.ID]?.[skillName] ?? 0;
 
 		const getNext = (arr, idx, mod) => arr?.[idx + mod] ? idx + mod : (mod == 1 ? 0 : arr.length - 1); 
 	
@@ -173,7 +169,7 @@ export class SKILLRANKS {
 
 		$element.find('.skills-list li.skill').each((index, skill) => {
 			let skillData = options.actor.system.skills[skill.dataset.skill];
-			let rankLevel = options.actor.flags[MODULE.ID]?.skills[skill.dataset.skill]?.rank ?? 0;
+			let rankLevel = options.actor.flags[MODULE.ID]?.[skill.dataset.skill] ?? 0;
 			if (rankLevel == 1) rankLevel = 0;
 			if (skillData.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
 
