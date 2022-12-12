@@ -29,3 +29,31 @@ You gain additional skill ranks instead of skill proficiencies? The system is de
 
 ## Alright, but what about Jack of All Trades?
 Well you finally got me, this one is a little tricky. Jack of all trades sets your minimum proficiency bonus to half of your character level proficiency bonuses regardless of your rank in that class. Meaning if your Rank would be lower, you will be at least at the value of Jack of All Trades. 
+
+## Skill Points Per Level
+This is a quick table to show you how many skill ranks you should have per level. This list doesn't include any extra ranks you gain via your Race, Class, Background or Feats.
+
+| Level | Ranks Granted | Minimum Ranks |
+|-------|---------------|---------------|
+| 1     | 0*            | 0*            |
+| 2     | 1             | 1             |
+| 3     | 1             | 2             |
+| 4     | 3             | 5             |
+| 5     | 1             | 6             |
+| 6     | 1             | 7             |
+| 7     | 1             | 8             |
+| 8     | 3             | 11            |
+| 9     | 1             | 12            |
+| 10    | 1             | 13            |
+| 11    | 1             | 14            |
+| 12    | 3             | 17            |
+| 13    | 1             | 18            |
+| 14    | 1             | 19            |
+| 15    | 1             | 20            |
+| 16    | 3             | 23            |
+| 17    | 1             | 24            |
+| 18    | 1             | 25            |
+| 19    | 1             | 26            |
+| 20    | 3             | 29            |
+
+> \* Level 1 you start with a number of skill ranks equal to the skill proficiencies gained from your Race, Class, Background or Feats
