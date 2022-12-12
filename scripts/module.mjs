@@ -1,17 +1,42 @@
 // GET MODULE CORE
 import { MODULE } from './_module.mjs';
 
-//import Proficiency from "./overrides/proficiency.js";
-
 // DEFINE MODULE CLASS
 export class SKILLRANKS {
 
 	static getRankCount
 
+	static get rank() {
+		return {
+			0: {
+				rank: 0,
+				title: 'untrained'
+			},
+			2: {
+				rank: 1,
+				title: 'Knowledgeable'
+			},
+			3: {
+				rank: 2,
+				title: 'Trained'
+			},
+			4: {
+				rank: 3,
+				title: 'Expert'
+			},
+			5: {
+				rank: 4,
+				title: 'Master'
+			},
+			6: {
+				rank: 5,
+				title: 'Legendary'
+			}
+		}
+	}
+
 	static renderActorSkillConfig = (app, element, options) => {
 		let $element = $(element);
-		MODULE.log(app, element, options)
-
 		$element.find(`select[name="system.skills.${options.skillId}.value"]`).closest('.form-group').after(`<div class="form-group">
 			<label>Skill Rank</label>
 			<select name="flags.${MODULE.ID}.skills.${options.skillId}.rank">
@@ -34,7 +59,6 @@ export class SKILLRANKS {
 
 	//actorData, bonusData, bonuses, checkBonus, originalSkills
 	static prepareSkills(bonusData, globalBonuses, checkBonus, originalSkills) {
-		MODULE.log('prepareSkills', this, bonusData, globalBonuses, checkBonus, originalSkills)
 		if ( this.type === "vehicle" ) return;
 		const flags = this.flags.dnd5e ?? {};
 
@@ -69,8 +93,7 @@ export class SKILLRANKS {
 		  skl.mod = ability?.mod ?? 0;
 		  
 		  let rankLevel = this.flags[MODULE.ID]?.skills[id]?.rank ?? 0;
-		  if (skl.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;		
-		  MODULE.log('OVERRIDE', id, rankLevel, skl.value, roundDown)
+		  if (skl.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
 
 		  //skl.prof = new Proficiency(skl.rank, skl.value, roundDown);
 		  skl.prof = new game.dnd5e.documents.Proficiency(rankLevel, skl.value, roundDown);
@@ -85,46 +108,78 @@ export class SKILLRANKS {
 		}
 	}
 
+	static onCycleSkillRank(event) {
+		event.preventDefault();
+		const field = event.target.closest('.skill').querySelector('input');
+		const skillName = event.target.closest('.skill').dataset.skill;
+		const actorId = event.target.closest('.window-app').getAttribute('id').split('-').pop();
+		const actor = game.actors.get(actorId);
+		const skillData = actor._source.system.skills[skillName];
+		if ( !actor ) return;
+		let rankLevel = actor.flags[MODULE.ID]?.skills[skillName]?.rank ?? 0;
+		if (rankLevel == 1) rankLevel = 0;
+		if (skillData.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
+
+		const getNext = (lvl, mod) => {
+			if (skillData.value == 0) {
+				if (mod == 1 && lvl == 6) return 0;
+				else if (mod == 1 && lvl == 0) return 2;
+				else if (mod == -1 && lvl == 0) return 6;
+				else if (mod == -1 && lvl == 2) return 0;
+			}else if (skillData.value != 0) {
+				if (mod == 1 && lvl == 6) return 2;
+				else if (mod == -1 && lvl == 2) return 6;
+			}
+			
+			return lvl + mod;
+		}
+
+		actor.update({
+			flags: {
+				[MODULE.ID]: {
+					skills: {
+						[skillName]: {
+							rank: getNext(parseInt(rankLevel), (event.type === "click" ? 1 : -1))
+						}
+					}
+				} 
+			}
+		})
+	}
+
+	static onCycleSkillProficiency(event) {
+		event.preventDefault();
+		const field = event.currentTarget.previousElementSibling;
+		const skillName = field.parentElement.dataset.skill;
+		const source = this.actor._source.system.skills[skillName];
+		if ( !source ) return;
+		const rankLevel = this.actor.flags[MODULE.ID]?.skills[skillName]?.rank ?? 0;
+
+		const getNext = (arr, idx, mod) => arr?.[idx + mod] ? idx + mod : (mod == 1 ? 0 : arr.length - 1); 
+	
+		// Cycle to the next or previous skill level
+		const levels = rankLevel == 0 ? [0, 1, 0.5, 2] : [1, 0.5, 2];
+		let idx = levels.indexOf(source?.value ?? 0); 
+		if (idx == -1) idx = 0;
+		const next = getNext(levels, idx, (event.type === "click" ? 1 : -1));
+		field.value = levels[next];
+	
+		// Update the field value and save the form
+		return this._onSubmit(event);
+	}
+
 	static renderActorSheet5e = (app, element, options) => {
 		let $element = $(element);
-		let rankData = {
-			0: {
-				rank: 0,
-				title: 'untrained'
-			},
-			2: {
-				rank: 1,
-				title: 'Knowledgeable'
-			},
-			3: {
-				rank: 2,
-				title: 'Trained'
-			},
-			4: {
-				rank: 3,
-				title: 'Expert'
-			},
-			5: {
-				rank: 4,
-				title: 'Master'
-			},
-			6: {
-				rank: 5,
-				title: 'Legendary'
-			}
-		}
 
 		$element.find('.skills-list li.skill').each((index, skill) => {
 			let skillData = options.actor.system.skills[skill.dataset.skill];
 			let rankLevel = options.actor.flags[MODULE.ID]?.skills[skill.dataset.skill]?.rank ?? 0;
-			if (skillData.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;	
+			if (rankLevel == 1) rankLevel = 0;
+			if (skillData.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
 
-			MODULE.log('renderActorSheet5e', index, skillData);
-			$(skill).find('.skill-name-controls').before(`<a class="rank-toggle skill-rank" data-tooltip="Rank: ${rankData[rankLevel].title}"><i class="far">${rankData[rankLevel].rank}</i></a>`);
+			$(skill).find('.skill-name-controls').before(`<a class="rank-toggle skill-rank" data-tooltip="Rank: ${SKILLRANKS.rank[rankLevel].title}"><i class="far">${SKILLRANKS.rank[rankLevel].rank}</i></a>`);
 
-			/*$(skill).find('.rank-toggle.skill-rank').on('click', (event) => {
-				MODULE.log(event);
-			})*/
+			$(skill).find('.rank-toggle.skill-rank').on('click contextmenu', SKILLRANKS.onCycleSkillRank);
 		});
 	}
 }

@@ -36,7 +36,11 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
 // libWrapper HOOKS -> BIND HOOKS
 /* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
 Hooks.on('init', async () => {
+	// Update Prepare Skills to Handle for Skill Rank
 	libWrapper.register(MODULE.ID, 'game.dnd5e.documents.Actor5e.prototype._prepareSkills', SKILLRANKS.prepareSkills, 'OVERRIDE');
+	
+	// Update Cycle Skill Proficiency
+	libWrapper.register(MODULE.ID, 'game.dnd5e.applications.actor.ActorSheet5e.prototype._onCycleSkillProficiency', SKILLRANKS.onCycleSkillProficiency, 'OVERRIDE');
 });
 
 /* ─────────────── ⋆⋅☆⋅⋆ ─────────────── */
