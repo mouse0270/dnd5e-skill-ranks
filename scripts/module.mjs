@@ -59,7 +59,7 @@ export class SKILLRANKS {
 
 	//actorData, bonusData, bonuses, checkBonus, originalSkills
 	static prepareSkills(bonusData, globalBonuses, checkBonus, originalSkills) {
-		if ( this.type === "vehicle" ) return;
+		if ( this.type == "vehicle" ) return;
 		const flags = this.flags.dnd5e ?? {};
 
 		// Skill modifiers
@@ -96,7 +96,7 @@ export class SKILLRANKS {
 		  if (skl.value > 0 && (rankLevel ?? 0) == 0) rankLevel = 2;
 
 		  //skl.prof = new Proficiency(skl.rank, skl.value, roundDown);
-		  skl.prof = new game.dnd5e.documents.Proficiency(rankLevel, skl.value, roundDown);
+		  skl.prof = new game.dnd5e.documents.Proficiency(this.type == "character" ? rankLevel : this.system.attributes.prof, skl.value, roundDown);
 		  skl.proficient = skl.value;
 		  skl.total = skl.mod + skl.bonus;
 		  if ( Number.isNumeric(skl.prof.term) ) skl.total += skl.prof.flat;
@@ -165,6 +165,7 @@ export class SKILLRANKS {
 	}
 
 	static renderActorSheet5e = (app, element, options) => {
+		if (!options.isCharacter) return;
 		let $element = $(element);
 
 		$element.find('.skills-list li.skill').each((index, skill) => {
