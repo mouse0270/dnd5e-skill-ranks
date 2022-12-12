@@ -33,27 +33,17 @@ Well you finally got me, this one is a little tricky. Jack of all trades sets yo
 ## Skill Points Per Level
 This is a quick table to show you how many skill ranks you should have per level. This list doesn't include any extra ranks you gain via your Race, Class, Background or Feats.
 
-| Level | Ranks Granted | Minimum Ranks |
-|-------|---------------|---------------|
-| 1     | 0*            | 0*            |
-| 2     | 1             | 1             |
-| 3     | 1             | 2             |
-| 4     | 3             | 5             |
-| 5     | 1             | 6             |
-| 6     | 1             | 7             |
-| 7     | 1             | 8             |
-| 8     | 3             | 11            |
-| 9     | 1             | 12            |
-| 10    | 1             | 13            |
-| 11    | 1             | 14            |
-| 12    | 3             | 17            |
-| 13    | 1             | 18            |
-| 14    | 1             | 19            |
-| 15    | 1             | 20            |
-| 16    | 3             | 23            |
-| 17    | 1             | 24            |
-| 18    | 1             | 25            |
-| 19    | 1             | 26            |
-| 20    | 3             | 29            |
+| Level | Ranks Granted | Minimum Ranks |-| Level | Ranks Granted | Minimum Ranks |
+|-------|---------------|---------------|-|-------|---------------|---------------|
+| 1     | 0*            | 0*            |-| 11    | 1             | 14            |
+| 2     | 1             | 1             |-| 12    | 3             | 17            |
+| 3     | 1             | 2             |-| 13    | 1             | 18            |
+| 4     | 3             | 5             |-| 14    | 1             | 19            |
+| 5     | 1             | 6             |-| 15    | 1             | 20            |
+| 6     | 1             | 7             |-| 16    | 3             | 23            |
+| 7     | 1             | 8             |-| 17    | 1             | 24            |
+| 8     | 3             | 11            |-| 18    | 1             | 25            |
+| 9     | 1             | 12            |-| 19    | 1             | 26            |
+| 10    | 1             | 13            |-| 20    | 3             | 29            |
 
 > \* Level 1 you start with a number of skill ranks equal to the skill proficiencies gained from your Race, Class, Background or Feats
