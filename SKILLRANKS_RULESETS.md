@@ -1,6 +1,4 @@
 # Skill Ranks
-
-## How do I gain ranks?
 To keep the system inline with and compatible with most of what D&D5e provides both core and homebrew, you gain a skill rank point every time you gain a skill proficency. Skill Ranks are can be user defined but we provide a basic template which starts at `Untrained (0)` and goes to `Legendary (5)`. Untrainined grants you no bonus, and every rank above grants you a bonus  equal to that rank. Any skill in which you are proficient in you have at least 1 rank in.
 
 | Rank | Title         | Proficiency Bonus |
@@ -44,7 +42,7 @@ This is a quick table to show you how many skill ranks you should have per level
 > \* Level 1 you start with a number of skill ranks equal to the skill proficiencies gained from your Race, Class, Background or Feats
 
 
-## Ruleset #1 (Pathfinder 2e Based)
+## Ruleset #2 (Pathfinder 2e Based)
 This ruleset is based off of how you gain skill ranks in PF2e. This means you will get far fewer skill ranks as you level up. This means overall players will have lower skill bonus but it should make skills feel more impactful when used.
 
 ### How do I gain ranks?
